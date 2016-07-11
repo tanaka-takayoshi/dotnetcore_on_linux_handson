@@ -29,3 +29,13 @@ $ code-insiders .
 ![](./images/part1/03VSCode.png)
 
 ![](./images/part1/04Debug.png)
+
+Add tooling dependencies.
+
+### Part2
+
+```
+$ mkdir App_Data
+$ mkdir Models
+$ touch Models/Pubs.cs
+```
