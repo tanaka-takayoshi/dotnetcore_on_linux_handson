@@ -8,6 +8,8 @@ http://dot.net/
 
 - Visual Studio Code
 - C# extension
+- npm
+- yo, gulp, bower etc
 
 ### 1. .NET Core
 
@@ -27,19 +29,15 @@ http://dot.net/
 
 #### デプロイメント
 
-TBD
+- portable 
+- selfcontained
+- to windows
 
 ### 2. ASP.NET Core
 
-#### HelloWeb
+#### [Hello World, ASP.NET Core 1.0!](/aspnetcore)
 
-- Hello WorldプロジェクトをWebプロジェクトへ
-
-#### Hello MVC with Yemon
-
-- Yemonの導入
-- テンプレートWebプロジェクトの生成
-- Webアプリのデバッグ
+[こちらのブログ](https://blogs.msdn.microsoft.com/nakama/2016/07/07/aspnetcore10/) をVisual Studio Code on Linuxに焼き直したもの。
 
 #### Database
 
@@ -50,9 +48,6 @@ TBD
 (Option)
 - Dapper
 
-#### 既成アプリからの操作
-
-TBD
 
 #### デプロイメント
 
