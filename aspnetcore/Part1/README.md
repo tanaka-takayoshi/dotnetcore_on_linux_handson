@@ -1,39 +1,61 @@
-# Welcome to ASP.NET Core
+### Part1 
 
-We've made some big updates in this release, so it’s **important** that you spend a few minutes to learn what’s new.
+まずはじめに、空のASP.NET Core Web Applicationプロジェクトを作成します。``dotnet new -t web`` の場合、MVCのフルセットが作成されるため、今回はYeamanを利用します。``yo aspnet``と入力するとウィザード形式で選択することができます。
 
-You've created a new ASP.NET Core project. [Learn what's new](https://go.microsoft.com/fwlink/?LinkId=518016)
+```
+$ yo aspnet
+```
 
-## This application consists of:
+上下矢印で移動できますが、初期値の「Empty Web Application」を選択します。
+![](./images/part1/01Yemon.png)
 
-*   Sample pages using ASP.NET Core MVC
-*   [Bower](https://go.microsoft.com/fwlink/?LinkId=518004) for managing client-side libraries
-*   Theming using [Bootstrap](https://go.microsoft.com/fwlink/?LinkID=398939)
+プロジェクト名を入力します。Yeomanはカレントディレクトリにプロジェクト名と同じディレクトリを作成し、そのディレクトリ内にファイルを作成します。現状、プロジェクト名とディレクトリ名および既定の名前空間が同じ値になります。
+![](./images/part1/02Yemon.png)
 
-## How to
+作成されたディレクトリでVisual Studio Codeを開きます。Insiderではない場合、``code``コマンドです。
+```
+$ code AspNetCorehandson
+```
 
-*   [Add a Controller and View](https://go.microsoft.com/fwlink/?LinkID=398600)
-*   [Add an appsetting in config and access it in app.](https://go.microsoft.com/fwlink/?LinkID=699562)
-*   [Manage User Secrets using Secret Manager.](https://go.microsoft.com/fwlink/?LinkId=699315)
-*   [Use logging to log a message.](https://go.microsoft.com/fwlink/?LinkId=699316)
-*   [Add packages using NuGet.](https://go.microsoft.com/fwlink/?LinkId=699317)
-*   [Add client packages using Bower.](https://go.microsoft.com/fwlink/?LinkId=699318)
-*   [Target development, staging or production environment.](https://go.microsoft.com/fwlink/?LinkId=699319)
+Insiderの場合は``code-insiders``コマンドになります。
+```
+$ code-insiders AspNetCorehandson
+```
 
-## Overview
+開くと、アセットのダウンロードを求められるのでYesを選択します。``.vscode``ディレクトリが作成されます。
+![](./images/part1/03VSCode.png)
 
-*   [Conceptual overview of what is ASP.NET Core](https://go.microsoft.com/fwlink/?LinkId=518008)
-*   [Fundamentals of ASP.NET Core such as Startup and middleware.](https://go.microsoft.com/fwlink/?LinkId=699320)
-*   [Working with Data](https://go.microsoft.com/fwlink/?LinkId=398602)
-*   [Security](https://go.microsoft.com/fwlink/?LinkId=398603)
-*   [Client side development](https://go.microsoft.com/fwlink/?LinkID=699321)
-*   [Develop on different platforms](https://go.microsoft.com/fwlink/?LinkID=699322)
-*   [Read more on the documentation site](https://go.microsoft.com/fwlink/?LinkID=699323)
+``F5``キーを押してデバッグ起動します。左側のアイコン一覧から虫アイコンを選び、緑矢印アイコンでも起動できます。自動でブラウザが立ち上がりメッセージが表示されるはずです。起動しない場合は、http://localhost:5000 を開いてください。
+![](./images/part1/04Debug.png)
 
-## Run & Deploy
+Visual Studio Codeに表示されている赤四角アイコンを押すなどしてデバッグを修了します。``project.json``ファイルを開いて、下記の様に修正します。なお、本家ではSQLServerを利用していますが、localdb(mdfファイル)がLinux上で利用できないため、SQLiteを指定しています。
 
-*   [Run your app](https://go.microsoft.com/fwlink/?LinkID=517851)
-*   [Run tools such as EF migrations and more](https://go.microsoft.com/fwlink/?LinkID=517853)
-*   [Publish to Microsoft Azure Web Apps](https://go.microsoft.com/fwlink/?LinkID=398609)
+dependenciesに以下のライブラリを追加。
+```
+  "dependencies": {
+  //略
+    "Microsoft.AspNetCore.Mvc": "1.0.0",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0",
+    "Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0",
+    "Microsoft.EntityFrameworkCore": "1.0.0",
+    "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0",
+    "Microsoft.EntityFrameworkCore.Design": {
+      "version": "1.0.0-preview2-final",
+      "type": "build"
+    }
+  }
+```
 
-We would love to hear your [feedback](https://go.microsoft.com/fwlink/?LinkId=518015)
+toolsに以下のライブラリを追加。
+```
+  "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final",
+    "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final"
+  }
+```
+
+追加したら、restoreしてエラーなく完了することを確認します。
+
+```
+$ dotnet restore
+```
