@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using AspNetCorehandson;
+using AspNetCorehandson.Models;
 
 namespace AspNetCorehandson.Migrations
 {

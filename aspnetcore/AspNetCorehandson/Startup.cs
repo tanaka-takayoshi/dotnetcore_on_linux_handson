@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCorehandson.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,7 @@ namespace AspNetCorehandson
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,18 +38,8 @@ namespace AspNetCorehandson
                 app.UseDeveloperExceptionPage();
             }
 
-            // app.Run(async (context) =>
-            // {
-            //     await context.Response.WriteAsync("Hello World!");
-            // });
-            app.Run(async (context) =>
-            {
-                using (PubsEntities pubs = new PubsEntities())
-                {
-                    var query = pubs.Authors.Where(a => a.State == "CA");
-                    await context.Response.WriteAsync(query.Count().ToString());
-                }
-            });
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
