@@ -1,0 +1,31 @@
+@model AspNetCorehandson.ViewModels.AuthorListViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>著者データ一覧</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>著者ID</th>
+                <th>著者名</th>
+                <th>電話番号</th>
+                <th>契約有無</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model.Authors)
+            {
+                <tr>
+                    <td>@a.AuthorId</td>
+                    <td>@a.AuthorFirstName @a.AuthorLastName</td>
+                    <td>@a.Phone</td>
+                    <td>@(a.Contract ? "契約あり" : "契約なし")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
