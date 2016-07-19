@@ -5,10 +5,26 @@
     <title>@ViewData["Title"]</title>
     <meta name="viewport" content="width=device-width, intial-scale=1.0" />
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
+    <script type="text/javascript">
+    $(function () {
+        $.ajaxSetup({
+            cache: false,
+            error: function (xhr, status, err) { alert("通信エラーが発生しました。"); } // 集約通信例外ハンドラ
+        });
+
+        window.onerror = function (message, url, lineNumber) {
+            console.log(message);
+            var msg = "処理中にエラーが発生しました。" + message;
+            alert(msg);
+            return true;
+        };
+    });
+    </script>
+    
     @RenderSection("Libraries", required: false)
 
     <style type="text/css">
