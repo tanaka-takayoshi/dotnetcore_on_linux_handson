@@ -1,0 +1,103 @@
+@using AspNetCorehandson.ViewModels
+@model UpdateAuthorRequest
+@{
+    ViewBag.Title = "著者データの編集";
+}
+@section Libraries {
+    @Html.Partial("_ImportsLibraryValidation")
+}
+
+@section Styles {
+    @Html.Partial("_ImportsStyleValidation")
+}
+
+<h4>著者データを修正してください。</h4>
+
+<form id="frmInput">
+    <dl>
+        <dt>著者ID</dt>
+        <dd>@ViewData["AuthorId"]</dd>
+    </dl>
+    <dl>
+        <dt>著者名（名）</dt>
+        <dd>@Html.TextBoxFor(m => m.AuthorFirstName, new { data_val_specialnamecheck = "指定された名前（名・姓の組み合わせ）は使えません。" }) @Html.ValidationMessageFor(m => m.AuthorFirstName, "*")</dd>
+    </dl>
+    <dl>
+        <dt>著者姓（姓）</dt>
+        <dd>@Html.TextBoxFor(m => m.AuthorLastName, new { data_val_specialnamecheck = "指定された名前（名・姓の組み合わせ）は使えません。" }) @Html.ValidationMessageFor(m => m.AuthorLastName, "*")</dd>
+    </dl>
+    <dl>
+        <dt>電話番号</dt>
+        <dd>@Html.TextBoxFor(m => m.Phone) @Html.ValidationMessageFor(m => m.Phone, "*")</dd>
+    </dl>
+    <dl>
+        <dt>州</dt>
+        <dd><select id="State" name="State"></select></dd>
+    </dl>
+
+    <p>
+        <input type="button" id="btnUpdate" value="登録" />
+        <input type="button" id="btnCancel" value="キャンセル" />
+    </p>
+    @Html.ValidationSummary("入力にエラーがあります。修正してください。")
+
+    <p id="lblErrorMessage" class="error">
+    </p>
+</form>
+
+<hr />
+
+<p>
+    @Html.ActionLink("業務メニューに戻る", "Index", "Home", new { area = "Common" }, null)
+</p>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            var authorId = "@ViewData["AuthorId"]";
+            var authorToEdit = null;
+
+            $.getJSON("/Sample03/GetAllStates", null, function (result) {
+                $.each(result, function () {
+                    $("#State")
+                        .append($("<option></option>")
+                        .attr("value", this)
+                        .text(this));
+                });
+                $.getJSON("/Sample03/GetAuthorByAuthorId", { authorId: authorId }, function (result) {
+                    $("#AuthorFirstName").val(result.authorFirstName);
+                    $("#AuthorLastName").val(result.authorLastName);
+                    $("#Phone").val(result.phone);
+                    authorToEdit = result;
+                    $("#State option[value='" + result.state + "']").attr("selected", true);
+                });
+            });
+
+            $("#btnUpdate").click(function () {
+                if ($("#frmInput").valid() == true) {
+                    // エラーサマリメッセージをクリア
+                    $("#frmInput").find("[data-valmsg-summary=true]").removeClass("validation-summary-errors").addClass("validation-summary-valid").find("ul").empty();
+
+                    $.post(
+                        "/Sample03/UpdateAuthor",
+                        {
+                            AuthorId: authorId,
+                            AuthorFirstName: $("#AuthorFirstName").val(),
+                            AuthorLastName: $("#AuthorLastName").val(),
+                            Phone: $("#Phone").val(),
+                            State: $("#State").val()
+                        },
+                        function (result) {
+                            window.location = "@Url.Action("ListAuthors")";
+                        }
+                    );
+                }
+            });
+
+            $("#btnCancel").click(function () {
+                window.location = "@Url.Action("ListAuthors")";
+                return false;
+            });
+        });
+    </script>
+}
