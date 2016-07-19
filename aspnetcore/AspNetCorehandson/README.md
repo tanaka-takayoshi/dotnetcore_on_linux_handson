@@ -1,20 +1,8 @@
 Part4
 
 ```
-$ yo aspnet:MvcController Sample01Controller
-$ mkdir Views/Sample01
-$ yo aspnet:MvcView Sample01/ShowAllAuthors
-$ yo aspnet:MvcView Sample01/ShowAuthorsByState
+$ yo aspnet:MvcController Sample02Controller
+$ mkdir Views/Sample02
+$ yo aspnet:MvcView Sample02/ListAuthors
+$ yo aspnet:MvcView Sample02/EditAuthors
 ```
-
-
-```
-[HttpGet]
-        public IList<Author> GetAllAuthors()
-        {
-            using (var pubs = new PubsEntities())
-            {
-                return pubs.Authors.ToArray();
-            }
-        }
-        ```
