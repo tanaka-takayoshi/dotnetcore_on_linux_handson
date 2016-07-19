@@ -1,0 +1,68 @@
+@{ ViewData["Title"] = "州による著者データの検索"; }
+
+@section Libraries {
+    @Html.Partial("_ImportsLibraryKnockout")
+}
+
+<h4>州による著者データの検索</h4>
+
+<div>
+    <select id="ddlStates" data-bind="options: states"></select>
+    <button id="btnShowAuthors">データ表示</button>
+</div>
+
+<hr />
+
+<div class="table-responsive">
+    <table id="tblAuthors" class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>著者ID</th>
+                <th>著者名</th>
+                <th>電話番号</th>
+                <th>州</th>
+                <th>契約有無</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: authors">
+            <tr>
+                <td data-bind="text: authorId"></td>
+                <td data-bind="text: authorName"></td>
+                <td data-bind="text: phone"></td>
+                <td data-bind="text: state"></td>
+                <td>
+                    <input type="checkbox" disabled data-bind="checked: contract" />&nbsp;
+                    <text data-bind="text: (contract ? '契約あり' : '契約なし')"></text>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#tblAuthors").hide(); // css('display', 'none') と同じ
+
+            // 後から値を入れたい場合には、ko.observable() と ko.observableArray() を割り当てておく
+            var viewModel = {
+                states: ko.observableArray(),
+                authors: ko.observableArray()
+            };
+            ko.applyBindings(viewModel);
+
+            // サーバから州一覧を取り寄せてバインド
+            $.getJSON("/Sample01/GetStates", function (result) {
+                viewModel.states(result);
+            });
+
+            $("#btnShowAuthors").click(function () {
+                // クエリ文字列を引数に渡すには、第二パラメータにオブジェクトを渡す
+                $.getJSON("/Sample01/GetAuthorsByState", { state: $("#ddlStates").val() }, function (result) {
+                    viewModel.authors(result); // データを observableArray に流し込み
+                    $("#tblAuthors").show(); // css('display', 'block') と同じ
+                });
+            });
+        });
+    </script>
+}

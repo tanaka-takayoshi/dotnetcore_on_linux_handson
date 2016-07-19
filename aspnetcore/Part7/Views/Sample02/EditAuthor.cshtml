@@ -1,0 +1,69 @@
+
+@model AspNetCorehandson.ViewModels.AuthorEditViewModel
+@{
+    ViewBag.Title = "著者データの編集";
+}
+@section Libraries {
+    @Html.Partial("_ImportsLibraryValidation")
+}
+
+@section Styles {
+    @Html.Partial("_ImportsStyleValidation")
+}
+
+<h4>著者データを修正してください。</h4>
+
+@using (Html.BeginForm("EditAuthor", "Sample02", new { id = Model.AuthorId }))
+{
+    <dl>
+        <dt>著者ID</dt>
+        <dd>@Model.AuthorId</dd>
+    </dl>
+    <dl>
+        <dt>著者名（名）</dt>
+        <dd>@Html.TextBoxFor(m => m.AuthorFirstName, new { data_val_specialnamecheck = "指定された名前（名・姓の組み合わせ）は使えません。" }) @Html.ValidationMessageFor(m => m.AuthorFirstName, "*")</dd>
+    </dl>
+    <dl>
+        <dt>著者姓（姓）</dt>
+        <dd>@Html.TextBoxFor(m => m.AuthorLastName, new { data_val_specialnamecheck = "指定された名前（名・姓の組み合わせ）は使えません。" }) @Html.ValidationMessageFor(m => m.AuthorLastName, "*")</dd>
+    </dl>
+    <dl>
+        <dt>電話番号</dt>
+        <dd>@Html.TextBoxFor(m => m.Phone) @Html.ValidationMessageFor(m => m.Phone, "*")</dd>
+    </dl>
+    <dl>
+        <dt>州</dt>
+        <dd>
+            @{
+                List<string> states = (List<string>)ViewData["AllStates"];
+            }
+            @Html.DropDownList("State", states.Select(s => new SelectListItem() { Text = s, Value = s, Selected = (s == Model.State) }))
+        </dd>
+    </dl>
+
+    <p>
+        <input type="submit" value="登録" />
+        <input type="button" id="btnCancel" value="キャンセル" />
+    </p>
+    @Html.ValidationSummary("入力にエラーがあります。修正してください。")
+}
+
+<hr />
+
+<p>
+    <a href="/">業務メニューに戻る</a>
+</p>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+    $(function () {
+        $("#btnCancel").click(function () {
+            window.location = "@Url.Action("ListAuthors")";
+            return false;
+        });
+    });
+    </script>
+}
+
