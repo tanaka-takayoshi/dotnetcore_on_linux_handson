@@ -1,5 +1,4 @@
-
-### Part3
+# Part3 ASP.NET MVC Core 1.0 の基本的な使い方
 
 #### MVCランタイムの追加
 

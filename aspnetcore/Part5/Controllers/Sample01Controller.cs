@@ -46,7 +46,7 @@ namespace AspNetCorehandson.Controllers
         }
 
         [HttpGet]
-        public string[] GetStates()
+        public IList<string> GetStates()
         {
             using (var pubs = new PubsEntities())
             {
@@ -63,7 +63,7 @@ namespace AspNetCorehandson.Controllers
             using (var pubs = new PubsEntities())
             {
                 var query = pubs.Authors.Where(a => a.State == state)
-                            .Select(a => new AuthorOverview()
+                            .Select(a => new AuthorOverview
                             {
                                 AuthorId = a.AuthorId,
                                 AuthorName = a.AuthorFirstName + " " + a.AuthorLastName,

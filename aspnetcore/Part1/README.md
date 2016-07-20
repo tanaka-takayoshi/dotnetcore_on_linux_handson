@@ -1,4 +1,4 @@
-### Part1 
+# Part1 ASP.NET Core 1.0 ことはじめ
 
 まずはじめに、空のASP.NET Core Web Applicationプロジェクトを作成します。``dotnet new -t web`` の場合、MVCのフルセットが作成されるため、今回はYeamanを利用します。``yo aspnet``と入力するとウィザード形式で選択することができます。
 

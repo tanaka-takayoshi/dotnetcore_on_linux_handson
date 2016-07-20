@@ -2,8 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCorehandson.ViewModels
 {
-    public class AuthorEditViewModel
+    public class UpdateAuthorRequest
     {
+        [Required]
+        [RegularExpression(@"^[0-9]{3}-[0-9]{2}-[0-9]{4}$")]
         public string AuthorId { get; set; }
 
         [Required(ErrorMessage = "著者名（名）は必須入力項目です。")]

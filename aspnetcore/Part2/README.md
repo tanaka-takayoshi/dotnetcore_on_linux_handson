@@ -1,4 +1,4 @@
-### Part2
+# Part2 Entity Framework Core 1.0 の基本的な使い方
 
 Part2では、実際にデータベースファイルからデータを取得します。用意されてあるファイルを利用することも可能ですが、EF Migrationでのデータベースファイルの生成も説明します。
 
@@ -9,6 +9,7 @@ $ mkdir App_Data
 $ mkdir Models
 $ touch Models/Pubs.cs
 ```
+
 Pubs.csはこのファイルの様に記述します。
 
 [Pubs.cs](https://github.com/tanaka-takayoshi/dotnetcore_on_linux_handson/blob/master/aspnetcore/AspNetCorehandson/Models/Pubs.cs)
@@ -18,12 +19,14 @@ TBD: EFに関する説明
 さて、データベースファイルですが、サンプルを利用する場合はこちら（TBD）からダウンロードして、App_Dataディレクトリに配置してください。
 一から作成する場合は、EFのMigrationツールを利用します。最初のコマンドの最後の引数はマイグレーション名で任意の名前でよいです。
 なお、これで作成されたデータベースは空ですので、適当にレコードを入力してください（SQL用意するかも、TBD）。
+
 ```bash
 $ dotnet ef migrations add InitialSetup
 $ dotnet ef database update
 ```
 
 ここまでできたら確認のため、Startup.csファイル内のConfigureメソッドにある``app.Run``を書き換えてDBにアクセスできるか実行してみましょう。
+
 ```cs
 app.Run(async (context) =>
   {
