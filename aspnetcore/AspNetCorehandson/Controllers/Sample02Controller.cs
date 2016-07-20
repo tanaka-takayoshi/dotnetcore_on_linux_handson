@@ -66,6 +66,7 @@ namespace AspNetCorehandson.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditAuthor(string id, AuthorEditViewModel model)
         {
             using (var pubs = new PubsEntities())

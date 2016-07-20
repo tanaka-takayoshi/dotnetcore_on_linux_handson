@@ -13,23 +13,25 @@
 
 <h4>著者データを修正してください。</h4>
 
-@using (Html.BeginForm("EditAuthor", "Sample02", new { id = Model.AuthorId }))
-{
+<form asp-controller="Sample02"
+      asp-action="EditAuthor"
+      method="post"
+      id="@Model.AuthorId">
     <dl>
         <dt>著者ID</dt>
         <dd>@Model.AuthorId</dd>
     </dl>
     <dl>
         <dt>著者名（名）</dt>
-        <dd>@Html.TextBoxFor(m => m.AuthorFirstName, new { data_val_specialnamecheck = "指定された名前（名・姓の組み合わせ）は使えません。" }) @Html.ValidationMessageFor(m => m.AuthorFirstName, "*")</dd>
+        <dd><input asp-for="AuthorFirstName"/><span asp-validation-for="AuthorFirstName"/></dd>
     </dl>
     <dl>
         <dt>著者姓（姓）</dt>
-        <dd>@Html.TextBoxFor(m => m.AuthorLastName, new { data_val_specialnamecheck = "指定された名前（名・姓の組み合わせ）は使えません。" }) @Html.ValidationMessageFor(m => m.AuthorLastName, "*")</dd>
+        <dd><input asp-for="AuthorLastName"/><span asp-validation-for="AuthorLastName"/></dd>
     </dl>
     <dl>
         <dt>電話番号</dt>
-        <dd>@Html.TextBoxFor(m => m.Phone) @Html.ValidationMessageFor(m => m.Phone, "*")</dd>
+        <dd><input asp-for="Phone"/><span asp-validation-for="Phone"/></dd>
     </dl>
     <dl>
         <dt>州</dt>
@@ -45,8 +47,8 @@
         <input type="submit" value="登録" />
         <input type="button" id="btnCancel" value="キャンセル" />
     </p>
-    @Html.ValidationSummary("入力にエラーがあります。修正してください。")
-}
+    <div asp-validation-summary="All">入力にエラーがあります。修正してください。</div>
+</form>
 
 <hr />
 
