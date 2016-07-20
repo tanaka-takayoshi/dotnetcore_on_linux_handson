@@ -1,0 +1,68 @@
+@{
+    ViewBag.Title = "編集対象の著者選択";
+}
+@section Libraries {
+    @Html.Partial("_ImportsLibraryKnockout")
+}
+
+<h4>編集対象となる著者を選択してください。</h4>
+
+<div class="table-responsive">
+    <table id="tblAuthors" class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>著者ID</th>
+                <th>著者名</th>
+                <th>電話番号</th>
+                <th>州</th>
+                <th>契約有無</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: authors">
+            <tr>
+                <td><a data-bind="text: authorId, attr: { href: 'EditAuthor/' + authorId }"></a></td>
+                <td data-bind="text: authorName"></td>
+                <td data-bind="text: phone"></td>
+                <td data-bind="text: state"></td>
+                <td>
+                    <input type="checkbox" disabled data-bind="checked: contract" />&nbsp;
+                    <text data-bind="text: (contract ? '契約あり' : '契約なし')"></text>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr />
+
+<p>
+    <a href="/">業務メニューに戻る</a>
+</p>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            // ブラウザキャッシュ無効化 (これを入れておかないと、Edit ページから戻ってきたときにリストが更新されない)
+            $.ajaxSetup({
+                cache: false
+            });
+
+            $("#tblAuthors").hide(); // css('display', 'none') と同じ
+
+            // 後から値を入れたい場合には、ko.observable() と ko.observableArray() を割り当てておく
+            var viewModel = {
+                states: ko.observableArray(),
+                authors: ko.observableArray()
+            };
+            ko.applyBindings(viewModel);
+
+            $.getJSON("/Sample03/GetAuthors", null, function (result) {
+                viewModel.authors(result); // データを observableArray に流し込み
+                $("#tblAuthors").show(); // css('display', 'block') と同じ
+
+                console.dir(result); // 全体表示
+            });
+
+        });
+    </script>
+}

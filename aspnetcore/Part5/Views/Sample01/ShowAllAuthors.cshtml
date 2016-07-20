@@ -1,0 +1,48 @@
+@{ ViewData["Title"] = "全著者データの一覧"; }
+
+@section Libraries {
+    @Html.Partial("_ImportsLibraryKnockout")
+}
+
+<h4>全著者データの一覧</h4>
+
+<div class="table-responsive">
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>著者ID</th>
+                <th>著者名</th>
+                <th>電話番号</th>
+                <th>州</th>
+                <th>契約有無</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: authors">
+            <tr>
+                <td data-bind="text: authorId"></td>
+                <td data-bind="text: authorName"></td>
+                <td data-bind="text: phone"></td>
+                <td data-bind="text: state"></td>
+                <td>
+                    <input type="checkbox" disabled data-bind="checked: contract" />&nbsp;
+                    <text data-bind="text: (contract ? '契約あり' : '契約なし')"></text>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            var viewModel = {
+                authors: ko.observableArray()
+            };
+            ko.applyBindings(viewModel);
+
+            $.getJSON("/Sample01/GetAllAuthors", function (result) {
+                viewModel.authors(result);
+            });
+        });
+    </script>
+}

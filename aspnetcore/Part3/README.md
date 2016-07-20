@@ -1,5 +1,4 @@
-
-### Part3
+# Part3 ASP.NET MVC Core 1.0 の基本的な使い方
 
 #### MVCランタイムの追加
 
@@ -152,4 +151,4 @@ Home/Index.cshtml はこのように記述します。
 ```
 
 ここまで作成して、F5でデバッグ起動すると、このような表示になるはずです。
-![](https://raw.githubusercontent.com/tanaka-takayoshi/dotnetcore_on_linux_handson/master/aspnetcore/images/part3/02First.png)
+![](https://raw.githubusercontent.com/tanaka-takayoshi/dotnetcore_on_linux_handson/master/aspnetcore/images/part3/02Second.png)

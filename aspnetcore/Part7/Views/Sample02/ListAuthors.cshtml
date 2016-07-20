@@ -1,0 +1,45 @@
+@using AspNetCorehandson.ViewModels
+@model AuthorOverviewListViewModel
+@{ 
+    ViewBag.Title = "編集対象の著者選択";
+}
+
+<h4>編集対象となる著者を選択してください。</h4>
+
+@{
+    if (Model.Authors != null)
+    {
+        var data = Model.Authors as IList<AuthorOverview>;
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>著者ID</th>
+                        <th>著者名</th>
+                        <th>電話番号</th>
+                        <th>州</th>
+                        <th>契約有無</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var a in data)
+                    {
+                        <tr>
+                            <td><a href="/Sample02/EditAuthor/@a.AuthorId">@a.AuthorId</a></td>
+                            <td>@a.AuthorName</td>
+                            <td>@a.Phone</td>
+                            <td>@a.State</td>
+                            <td><input type="checkbox" disabled @(a.Contract ? "checked" : "") /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+
+<hr />
+
+<p>
+    <a href="/">業務メニューに戻る</a>
+</p>
