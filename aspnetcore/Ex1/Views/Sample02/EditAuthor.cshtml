@@ -1,0 +1,71 @@
+
+@model AspNetCorehandson.ViewModels.AuthorEditViewModel
+@{
+    ViewBag.Title = "著者データの編集";
+}
+@section Libraries {
+    @Html.Partial("_ImportsLibraryValidation")
+}
+
+@section Styles {
+    @Html.Partial("_ImportsStyleValidation")
+}
+
+<h4>著者データを修正してください。</h4>
+
+<form asp-controller="Sample02"
+      asp-action="EditAuthor"
+      method="post"
+      id="@Model.AuthorId">
+    <dl>
+        <dt>著者ID</dt>
+        <dd>@Model.AuthorId</dd>
+    </dl>
+    <dl>
+        <dt>著者名（名）</dt>
+        <dd><input asp-for="AuthorFirstName"/><span asp-validation-for="AuthorFirstName"/></dd>
+    </dl>
+    <dl>
+        <dt>著者姓（姓）</dt>
+        <dd><input asp-for="AuthorLastName"/><span asp-validation-for="AuthorLastName"/></dd>
+    </dl>
+    <dl>
+        <dt>電話番号</dt>
+        <dd><input asp-for="Phone"/><span asp-validation-for="Phone"/></dd>
+    </dl>
+    <dl>
+        <dt>州</dt>
+        <dd>
+            @{
+                List<string> states = (List<string>)ViewData["AllStates"];
+            }
+            @Html.DropDownList("State", states.Select(s => new SelectListItem() { Text = s, Value = s, Selected = (s == Model.State) }))
+        </dd>
+    </dl>
+
+    <p>
+        <input type="submit" value="登録" />
+        <input type="button" id="btnCancel" value="キャンセル" />
+    </p>
+    <div asp-validation-summary="All">入力にエラーがあります。修正してください。</div>
+</form>
+
+<hr />
+
+<p>
+    <a href="/">業務メニューに戻る</a>
+</p>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+    $(function () {
+        $("#btnCancel").click(function () {
+            window.location = "@Url.Action("ListAuthors")";
+            return false;
+        });
+    });
+    </script>
+}
+
